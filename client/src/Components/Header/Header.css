@@ -1,0 +1,14 @@
+.Header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #222;
+    height: 88px;
+    color: white;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+  }
+  .headerItem{
+      margin: 10px;
+  }

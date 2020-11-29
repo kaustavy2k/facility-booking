@@ -8,12 +8,37 @@ const signToken = (id) => {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
+exports.logout = async (req, res) => {
+  try {
+    res.cookie("jwt", "", {
+      expires: new Date(
+        Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+      ),
+      httpOnly: true,
+    });
+
+    res.status(200).json({
+      status: "success",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: "failure",
+      message: err,
+    });
+  }
+};
 exports.signup = async (req, res) => {
   try {
     if (await users.findOne({ email: req.body.email })) {
       return res.status(500).json({
         status: "failure",
-        message: "email already registered",
+        message: {
+          errors: {
+            email: {
+              message: "email already registered",
+            },
+          },
+        },
       });
     } else {
       const newuser = await users.create(req.body);
@@ -90,14 +115,16 @@ exports.login = async (req, res) => {
 
 exports.protect = async (req, res, next) => {
   // 1) Getting token and check of it's there
-  let token;
+
+  let token = req.cookies.jwt;
+
   let decoded;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
+  // if (
+  //   req.headers.authorization &&
+  //   req.headers.authorization.startsWith("Bearer")
+  // ) {
+  //   token = req.headers.authorization.split(" ")[1];
+  // }
 
   if (!token) {
     return res.status(500).json({

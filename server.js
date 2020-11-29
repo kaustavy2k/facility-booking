@@ -11,11 +11,12 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology:true
+    useUnifiedTopology: true,
   })
-  .then(() => console.log("DB connection successful!"));
+  .then(() => console.log("DB connection successful!"))
+  .catch(() => console.log("DB connection unsuccessful"));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 2020;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
