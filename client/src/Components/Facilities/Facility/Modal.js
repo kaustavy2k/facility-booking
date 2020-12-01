@@ -16,9 +16,8 @@ const Modal = (props) => {
           <div className="CalDatTim">
             <h3 className="modalh3">Select Date & Time</h3>
             <div className="Calender">
-              <ReactCalendar />
+              <ReactCalendar className={props.className}/>
             </div>
-            <button className="modalbtn btn btn-dark">BOOK NOW!</button>
           </div>
           
         

@@ -11,7 +11,6 @@ import Facility from "./Facility/Facility";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./Facilities.css";
 const facilities = (props) => {
-  
   let title = [
     "Swimming",
     "Library",
@@ -35,16 +34,16 @@ const facilities = (props) => {
   return (
     <div className="Facilities">
       <div className=" row justify-content-center">
-        <Facility title={title[0]} text={text[0]} img={swim} />
-        <Facility title={title[1]} text={text[1]} img={lib} />
-        <Facility title={title[2]} text={text[2]} img={ban} />
-        <Facility title={title[3]} text={text[3]} img={rest} />
+        <Facility className="Swimming" title={title[0]} text={text[0]} img={swim} />
+        <Facility className="Library" title={title[1]} text={text[1]} img={lib} />
+        <Facility className="Banquet" title={title[2]} text={text[2]} img={ban} />
+        <Facility className="Restaurent" title={title[3]} text={text[3]} img={rest} />
       </div>
       <div className=" row">
-        <Facility title={title[4]} text={text[4]} img={club} />
-        <Facility title={title[5]} text={text[5]} img={gym} />
-        <Facility title={title[6]} text={text[6]} img={tennis} />
-        <Facility title={title[7]} text={text[7]} img={basket} />
+        <Facility className="Club" title={title[4]} text={text[4]} img={club} />
+        <Facility className="GYM" title={title[5]} text={text[5]} img={gym} />
+        <Facility className="Tennis-Court" title={title[6]} text={text[6]} img={tennis} />
+        <Facility className="Basketball-Court" title={title[7]} text={text[7]} img={basket} />
       </div>
     </div>
   );

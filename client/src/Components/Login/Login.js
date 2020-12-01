@@ -9,11 +9,6 @@ class SignUp extends Component {
     loading: false,
     msg: "",
   };
-  // componentDidMount(){
-  //   axios.get("http://localhost:2020/",{withCredentials:true}).then((res)=>{
-  //     console.log(res)
-  //   })
-  // }
   submitHandler = (e) => {
     this.setState({
       error: false,
@@ -29,16 +24,6 @@ class SignUp extends Component {
         withCredentials: true,
       })
       .then((res) => {
-        // axios
-        //   .get("http://localhost:2020/", {
-        //     withCredentials: true,
-        //   })
-        //   .then((res) => {
-        //     if ((res.status = 200)) {
-        //       this.props.history.push("http://localhost:2020/");
-        //     }
-        //   });
-
         this.setState({
           loading: false,
         });

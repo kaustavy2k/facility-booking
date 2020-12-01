@@ -20,7 +20,7 @@ const facility = (props) => {
           <a onClick={showModal} className="btn btn-primary">
             BOOK!
           </a>
-          <Modal show={modalShow} handleClose={hideModal}></Modal>
+          <Modal className={props.className} show={modalShow} handleClose={hideModal}></Modal>
         </div>
       </div>
     </div>
