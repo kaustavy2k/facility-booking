@@ -24,6 +24,9 @@ class Profile extends Component {
         });
     }
   }
+  setname = (n) => {
+    this.setState({ name: n });
+  };
   render() {
     let display, load;
     if (this.props.isLogin) {
@@ -45,7 +48,7 @@ class Profile extends Component {
               <div>
                 <div>
                   <Header name={this.props.name} />
-                  <UserProfile />
+                  <UserProfile name={(e)=>{this.setname(e)}}/>
                 </div>
               </div>
             )}
@@ -84,7 +87,7 @@ class Profile extends Component {
                 <div>
                   <div>
                     <Header name={this.state.name} />
-                    <UserProfile />
+                    <UserProfile name={(e)=>{this.setname(e)}}/>
                   </div>
                 </div>
               )}

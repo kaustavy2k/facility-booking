@@ -268,7 +268,13 @@ exports.updatePassword = async (req, res) => {
     ) {
       return res.status(500).json({
         status: "failure",
-        message: "Your current password is wrong",
+        message: {
+          errors: {
+            email: {
+              message: "Your password is wrong",
+            },
+          },
+        },
       });
     }
 
