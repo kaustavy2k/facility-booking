@@ -2,7 +2,9 @@ import React from "react";
 import "./Header.css";
 import {Link} from "react-router-dom"
 const header = (props) => {
+  //console.log(props.name,"header")
   return (
+    
     <header className="Header">
       <h3>Hi {props.name}!</h3>
       <div className="headerOp">

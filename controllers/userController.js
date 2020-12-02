@@ -13,7 +13,7 @@ exports.updateMe = async (req, res) => {
     const filteredBody = filterObj(req.body, "name", "email");
 
     // 2) Update user document
-    
+
     const updatedUser = await users.findByIdAndUpdate(
       req.user.id,
       filteredBody,
@@ -38,11 +38,10 @@ exports.updateMe = async (req, res) => {
 };
 
 exports.deleteMe = async (req, res) => {
-    console.log(req)
-  await users.deleteOne({_id:req.user.id});
+  await users.deleteOne({ _id: req.user.id });
 
   res.status(200).json({
     status: "success",
-    message:"account deleted"
+    message: "account deleted",
   });
 };

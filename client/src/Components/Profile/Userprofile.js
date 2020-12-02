@@ -10,12 +10,18 @@ class Userprofile extends Component {
     show: false,
     loader: false,
     msg: {},
+    bookings: [],
+    bookedmsg: "",
   };
   logout = () => {
     axios
       .get("http://localhost:2020/logout", { withCredentials: true })
       .then((res) => {
         window.location.reload();
+      })
+      .catch((err) => {
+        this.setState({ loader: false });
+        alert("Error. Try again later");
       });
   };
   showModal = () => {
@@ -30,22 +36,33 @@ class Userprofile extends Component {
       .delete("http://localhost:2020/deleteMe", { withCredentials: true })
       .then((res) => {
         window.location.reload();
+      })
+      .catch((err) => {
+        this.setState({ loader: false });
+        alert("Error. Try again later");
       });
   };
   updateme = () => {
+    this.firstname.value = "";
+    this.secondname.value = "";
     this.setState({ loader: true });
     let data = {
       name: this.newname,
       email: this.newemail,
     };
-    console.log(data);
+
     axios
       .patch("http://localhost:2020/updateMe", data, { withCredentials: true })
       .then((res) => {
         this.setState({ loader: false });
         alert("Name Successfully Changed!");
-        // window.location.reload();
-        this.props.name(this.newname)
+
+        this.props.name(this.newname);
+        window.location.reload();
+      })
+      .catch((err) => {
+        this.setState({ loader: false });
+        alert("Error. Try again later");
       });
   };
   updatepassword = () => {
@@ -80,8 +97,49 @@ class Userprofile extends Component {
         this.setState({ loader: false, msg: { ...temp } });
       });
   };
+  showbooking = () => {
+    this.setState({ loader: true });
+    axios
+      .get("http://localhost:2020/show", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        this.setState({
+          loader: false,
+          bookings: res.data.bookings,
+          bookedmsg: res.data.bookedmsg,
+        });
+      })
+      .catch((err) => {
+        this.setState({ loader: false });
+        alert("Error. Try again later");
+      });
+  };
+  deletebooking = (id) => {
+    this.setState({ loader: true });
+    axios
+      .post(
+        "http://localhost:2020/deleteBook",
+        { _id: id },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        this.setState({
+          loader: false,
+          bookings: res.data.bookings,
+          bookedmsg: res.data.bookedmsg,
+        });
+        alert("Booking Deleted!");
+      })
+      .catch((err) => {
+        this.setState({ loader: false });
+        alert("Error. Try again later");
+      });
+  };
   render() {
-    let popup1, popup2, popup3;
+    let popup1, popup2, popup3, displaybook;
     if (this.state.msg) {
       popup1 = <h5 className="display-error">{this.state.msg.email}</h5>;
       popup2 = <h5 className="display-error">{this.state.msg.password}</h5>;
@@ -89,9 +147,42 @@ class Userprofile extends Component {
         <h5 className="display-error">{this.state.msg.passwordConfirm}</h5>
       );
     }
+    if (this.state.bookings.length === 0) {
+      displaybook = <h5>{this.state.bookedmsg}</h5>;
+    } else {
+      displaybook = (
+        <div className="bookingsdiv">
+          {this.state.bookings.map((obj, index) => {
+            return (
+              <div className="bookingitems" key={index}>
+                <h3>
+                  {index + 1}. {obj.name} {obj.type} {obj.time}
+                </h3>
+                <button
+                  className="btn btn-dark"
+                  onClick={this.deletebooking.bind(this, obj._id)}
+                >
+                  DELETE
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
     let load = this.state.loader;
     return (
       <div className="container profile-container">
+        <br></br>
+        <div className="card">
+          <h5 className="card-header">Show Current Bookings</h5>
+          <div className="card-body">
+            {displaybook}
+            <button className="btn btn-primary" onClick={this.showbooking}>
+              Show
+            </button>
+          </div>
+        </div>
         <br></br>
         <div className="card">
           <h5 className="card-header">Change Name and Email</h5>
@@ -104,6 +195,9 @@ class Userprofile extends Component {
                   className="form-control"
                   id="formGroupExampleInput"
                   placeholder="New Name"
+                  ref={(inputEl) => {
+                    this.firstname = inputEl;
+                  }}
                   onChange={(e) => (this.newname = e.target.value)}
                 ></input>
               </div>
@@ -114,6 +208,9 @@ class Userprofile extends Component {
                   className="form-control"
                   id="formGroupExampleInput2"
                   placeholder="New Email"
+                  ref={(inputEl) => {
+                    this.secondname = inputEl;
+                  }}
                   onChange={(e) => (this.newemail = e.target.value)}
                 ></input>
               </div>

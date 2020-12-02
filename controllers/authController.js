@@ -177,11 +177,8 @@ exports.forgotPassword = async (req, res) => {
   await user.save({ validateBeforeSave: false });
 
   // 3) Send it to user's email
-  const resetURL = `${req.protocol}://${req.get(
-    "host"
-  )}/resetPassword/${resetToken}`;
 
-  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
+  const message = `Forgot your password? Here is your reset token ${resetToken} Copy and Paste it `;
 
   try {
     await sendEmail({
@@ -193,6 +190,7 @@ exports.forgotPassword = async (req, res) => {
     res.status(200).json({
       status: "success",
       message: "Token sent to email!",
+      resetToken,
     });
   } catch (err) {
     user.passwordResetToken = undefined;
@@ -221,7 +219,13 @@ exports.resetPassword = async (req, res) => {
     if (!user) {
       return res.status(500).json({
         status: "failure",
-        message: "Token expired or invalid!",
+        message: {
+          errors: {
+            token: {
+              message: "Wrong Token",
+            },
+          },
+        },
       });
     }
     user.password = req.body.password;

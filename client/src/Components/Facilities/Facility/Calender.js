@@ -23,11 +23,11 @@ const ReactCalendar = (props) => {
     })
       .then((res) => {
         setLoader({ loader: false });
-       alert("Booking Successful! Please check mail");
+        alert("Booking Successful! Please check mail");
       })
       .catch((res) => {
         setLoader({ loader: false });
-       alert("Booking Failed! Try again later");
+        alert("Booking Failed! Try again later");
       });
   };
 

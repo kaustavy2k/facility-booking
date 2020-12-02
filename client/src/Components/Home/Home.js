@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Facilities from "../Facilities/Facilities";
 import Profile from "..//Profile/Profile";
 import Header from "../Header/Header";
+
 class Home extends Component {
   state = {
     login: false,
@@ -23,7 +24,6 @@ class Home extends Component {
       });
   }
   render() {
-    
     let display;
     let load = this.state.loading;
     if (!this.state.login) {
@@ -45,6 +45,7 @@ class Home extends Component {
               exact
               path="/"
               render={(props) => (
+                  
                 <div>
                   <Header name={this.state.name}/>
                   <Facilities />

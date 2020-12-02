@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Nav from "../Nav/Nav";
 import Spinner from "../Spinner/spinner";
+import {Link} from "react-router-dom"
 axios.defaults.withCredentials = true;
 class SignUp extends Component {
   state = {
@@ -74,6 +75,9 @@ class SignUp extends Component {
               </div>
               <button className="btn btn-primary btn-block">Login</button>
             </form>
+            <Link to={"/forgot"} className="nav-link">
+                  Forgot Password
+                </Link>
           </div>
           {load ? <Spinner /> : ""}
         </div>

@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import Nav from "../Nav/Nav";
 import axios from "axios";
 import Spinner from "../Spinner/spinner";
-import { Switch, Route } from "react-router-dom";
 import Header from "../Header/Header";
-import Home from "../Home/Home";
 import UserProfile from "./Userprofile";
 class Profile extends Component {
   state = {
     login: false,
     loading: true,
-    name: "",
+    name: this.props.name,
   };
   componentDidMount() {
     if (!this.props.isLogin) {
@@ -31,29 +29,10 @@ class Profile extends Component {
     let display, load;
     if (this.props.isLogin) {
       display = (
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <div>
-                <Home isLogin={this.state.login} />
-              </div>
-            )}
-          />
-          <Route
-            exact
-            path="/profile"
-            render={(props) => (
-              <div>
                 <div>
-                  <Header name={this.props.name} />
+                  <Header name={this.state.name} />
                   <UserProfile name={(e)=>{this.setname(e)}}/>
                 </div>
-              </div>
-            )}
-          />
-        </Switch>
       );
     } else {
       load = this.state.loading;
@@ -70,29 +49,10 @@ class Profile extends Component {
         );
       } else {
         display = (
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <div>
-                  <Home isLogin={this.state.login} />
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/profile"
-              render={(props) => (
-                <div>
                   <div>
                     <Header name={this.state.name} />
                     <UserProfile name={(e)=>{this.setname(e)}}/>
                   </div>
-                </div>
-              )}
-            />
-          </Switch>
         );
       }
     }
