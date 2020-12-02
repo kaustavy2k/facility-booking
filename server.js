@@ -7,7 +7,7 @@ dotenv.config({ path: "./config.env" });
 const DB = process.env.DATABASE;
 
 mongoose
-  .connect(process.env.MONGODB_URI||DB, {
+  .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,

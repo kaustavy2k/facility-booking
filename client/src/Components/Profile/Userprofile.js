@@ -119,7 +119,7 @@ class Userprofile extends Component {
     this.setState({ loader: true });
     axios
       .post(
-        "http://localhost:2020/deleteBook",
+        "http://localhost:2020/deleteBook" ,
         { _id: id },
         {
           withCredentials: true,

@@ -49,12 +49,11 @@ exports.show = async (req, res) => {
 };
 exports.deleteBook = async (req, res) => {
   try {
-    const delbook = await book.find({ _id: req.body._id });
-    await book.deleteOne({ _id: req.body._id });
+    const delbook = await book.findOneAndDelete({ _id: req.body._id });
     await sendEmail({
       email: req.user.email,
       subject: "Booking Deletion",
-      message: `Your booking for ${delbook.type} on ${data.time} is removed`,
+      message: `Your booking for ${delbook.type} on ${delbook.time} is caccelled`,
     });
     const bookings = await book.find({ id: req.user.id });
     if (bookings.length != 0) {
@@ -64,11 +63,13 @@ exports.deleteBook = async (req, res) => {
         bookedmsg: "Bookings done",
       });
     } else {
-      res.status(200).json({
-        message: "your bookings",
-        bookings: [],
-        bookedmsg: "You dont have any current bookings!",
-      });
+    res.status(200).json({
+      message: "your bookings",
+      bookings: [],
+      bookedmsg: "You dont have any current bookings!",
+      delbook
+      
+    });
     }
   } catch (err) {
     return res.status(500).json({

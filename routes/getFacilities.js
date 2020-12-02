@@ -4,6 +4,8 @@ const authController = require("../controllers/authController");
 const userContoller = require("../controllers/userController");
 const bookController = require("../controllers/bookController");
 const router = express.Router();
+//const app = express();
+//const path = require("path");
 
 router.route("/").get(authController.protect, getFacilities.getAllFacilities);
 
@@ -24,5 +26,6 @@ router.route("/updateMe").patch(authController.protect, userContoller.updateMe);
 router
   .route("/deleteMe")
   .delete(authController.protect, userContoller.deleteMe);
+
 
 module.exports = router;
