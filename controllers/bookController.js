@@ -9,11 +9,12 @@ exports.book = async (req, res) => {
       time: req.body.time,
     };
     const newbook = await book.create(data);
-    await sendEmail({
-      email: req.user.email,
-      subject: "Booking Confirmation",
-      message: `Your booking for ${data.type} is confirmed on ${data.time}`,
-    });
+    //Error email pn heroku
+    // await sendEmail({
+    //   email: req.user.email,
+    //   subject: "Booking Confirmation",
+    //   message: `Your booking for ${data.type} is confirmed on ${data.time}`,
+    // });
     res.status(200).json({
       message: "success",
     });
@@ -50,11 +51,12 @@ exports.show = async (req, res) => {
 exports.deleteBook = async (req, res) => {
   try {
     const delbook = await book.findOneAndDelete({ _id: req.body._id });
-    await sendEmail({
-      email: req.user.email,
-      subject: "Booking Deletion",
-      message: `Your booking for ${delbook.type} on ${delbook.time} is caccelled`,
-    });
+     //Error email pn heroku
+    // await sendEmail({
+    //   email: req.user.email,
+    //   subject: "Booking Deletion",
+    //   message: `Your booking for ${delbook.type} on ${delbook.time} is caccelled`,
+    // });
     const bookings = await book.find({ id: req.user.id });
     if (bookings.length != 0) {
       res.status(200).json({
