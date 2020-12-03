@@ -24,7 +24,7 @@ class SignUp extends Component {
       passwordConfirm: this.cpass,
     };
     axios
-      .patch(`http://localhost:2020/resetPassword/${this.token}`, data, {
+      .patch(`https://the-facility-booking.herokuapp.com/resetPassword/${this.token}`, data, {
         withCredentials: true,
       })
       .then((res) => {
@@ -64,7 +64,7 @@ class SignUp extends Component {
     };
     this.cemail.value = "";
     axios
-      .post("http://localhost:2020/forgotPassword", data, {
+      .post("https://the-facility-booking.herokuapp.com/forgotPassword", data, {
         withCredentials: true,
       })
       .then((res) => {

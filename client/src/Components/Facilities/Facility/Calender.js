@@ -18,7 +18,7 @@ const ReactCalendar = (props) => {
       type: props.className,
     };
 
-    Axios.post("http://localhost:2020/book", data, {
+    Axios.post("https://the-facility-booking.herokuapp.com/book", data, {
       withCredentials: true,
     })
       .then((res) => {

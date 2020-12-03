@@ -15,7 +15,7 @@ class Userprofile extends Component {
   };
   logout = () => {
     axios
-      .get("http://localhost:2020/logout", { withCredentials: true })
+      .get("https://the-facility-booking.herokuapp.com/logout", { withCredentials: true })
       .then((res) => {
         window.location.reload();
       })
@@ -33,7 +33,7 @@ class Userprofile extends Component {
   };
   delete = () => {
     axios
-      .delete("http://localhost:2020/deleteMe", { withCredentials: true })
+      .delete("https://the-facility-booking.herokuapp.com/deleteMe", { withCredentials: true })
       .then((res) => {
         window.location.reload();
       })
@@ -52,7 +52,7 @@ class Userprofile extends Component {
     };
 
     axios
-      .patch("http://localhost:2020/updateMe", data, { withCredentials: true })
+      .patch("https://the-facility-booking.herokuapp.com/updateMe", data, { withCredentials: true })
       .then((res) => {
         this.setState({ loader: false });
         alert("Name Successfully Changed!");
@@ -76,7 +76,7 @@ class Userprofile extends Component {
       passwordConfirm: this.cpass,
     };
     axios
-      .patch("http://localhost:2020/updateMyPassword", data, {
+      .patch("https://the-facility-booking.herokuapp.com/updateMyPassword", data, {
         withCredentials: true,
       })
       .then((res) => {
@@ -100,7 +100,7 @@ class Userprofile extends Component {
   showbooking = () => {
     this.setState({ loader: true });
     axios
-      .get("http://localhost:2020/show", {
+      .get("https://the-facility-booking.herokuapp.com/show", {
         withCredentials: true,
       })
       .then((res) => {
@@ -119,7 +119,7 @@ class Userprofile extends Component {
     this.setState({ loader: true });
     axios
       .post(
-        "http://localhost:2020/deleteBook" ,
+        "https://the-facility-booking.herokuapp.com/deleteBook" ,
         { _id: id },
         {
           withCredentials: true,

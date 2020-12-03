@@ -15,7 +15,7 @@ class Home extends Component {
   };
   componentDidMount() {
     axios
-      .get("http://localhost:2020/main", { withCredentials: true })
+      .get("https://the-facility-booking.herokuapp.com/main", { withCredentials: true })
       .then((res) => {
         this.setState({ login: true, loading: false,name:res.data.name });
       })

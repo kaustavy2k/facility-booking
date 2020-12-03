@@ -34,7 +34,7 @@ class SignUp extends Component {
       passwordConfirm: this.cpassword,
     };
     axios
-      .post("http://localhost:2020/signup", data, {
+      .post("https://the-facility-booking.herokuapp.com/signup", data, {
         withCredentials: true,
       })
       .then((res) => {
