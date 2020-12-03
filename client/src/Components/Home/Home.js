@@ -11,13 +11,15 @@ class Home extends Component {
   state = {
     login: false,
     loading: true,
-    name:""
+    name: "",
   };
   componentDidMount() {
     axios
-      .get("https://the-facility-booking.herokuapp.com/main", { withCredentials: true })
+      .get("https://the-facility-booking.herokuapp.com/main", {
+        withCredentials: true,
+      })
       .then((res) => {
-        this.setState({ login: true, loading: false,name:res.data.name });
+        this.setState({ login: true, loading: false, name: res.data.name });
       })
       .catch((res) => {
         this.setState({ login: false, loading: false });
@@ -45,18 +47,21 @@ class Home extends Component {
               exact
               path="/"
               render={(props) => (
-                  
                 <div>
-                  <Header name={this.state.name}/>
+                  <Header name={this.state.name} />
                   <Facilities />
                 </div>
               )}
             />
-            <Route exact path="/profile" render={(props) => (
+            <Route
+              exact
+              path="/profile"
+              render={(props) => (
                 <div>
-                  <Profile isLogin={this.state.login} name={this.state.name}/>
+                  <Profile isLogin={this.state.login} name={this.state.name} />
                 </div>
-              )} />
+              )}
+            />
           </Switch>
         </BrowserRouter>
       );
